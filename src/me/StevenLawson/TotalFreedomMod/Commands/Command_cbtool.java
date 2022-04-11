@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import me.StevenLawson.TotalFreedomMod.TFM_Log;
-import net.minecraft.util.org.apache.commons.lang3.ArrayUtils;
-import net.minecraft.util.org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -66,7 +66,7 @@ public class Command_cbtool extends TFM_Command
             throw new SubCommandFailureException("Invalid subcommand name.");
         }
 
-        return SubCommand.getByName(args[0]).getExecutable().execute(ArrayUtils.remove(args, 0));
+        return SubCommand.getByName(args[0]).getExecutable().execute((String[]) ArrayUtils.remove(args, 0));
     }
 
     private static enum SubCommand

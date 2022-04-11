@@ -79,7 +79,7 @@ public class Command_doom extends TFM_Command
                 player.getWorld().strikeLightning(player.getLocation());
 
                 // kill (if not done already)
-                player.setHealth(0.0);
+                player.setHealth(0);
             }
         }.runTaskLater(plugin, 20L * 2L);
 
