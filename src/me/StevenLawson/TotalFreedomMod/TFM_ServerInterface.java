@@ -151,7 +151,8 @@ public class TFM_ServerInterface
         final Player player = event.getPlayer();
 
         final String username = player.getName();
-        final String ip = player.getMetadata("eagler_ip").get(0).asString(); // event.getAddress().getHostAddress().trim();
+        //final String ip = player.getMetadata("eagler_ip").get(0).asString();
+        final String ip = event.getAddress().getHostAddress().trim();
 
         if (username.trim().length() <= 2)
         {

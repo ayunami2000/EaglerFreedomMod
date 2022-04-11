@@ -308,8 +308,7 @@ public class TotalFreedomMod extends JavaPlugin
         pm.registerEvents(new TFM_WeatherListener(), plugin);
         pm.registerEvents(new TFM_ServerListener(), plugin);
 
-        server.getMessenger().registerOutgoingPluginChannel(plugin, "BungeeCord");
-        server.getMessenger().registerIncomingPluginChannel(plugin, "BungeeCord", new TFM_EaglerIpHandler());
+        //server.getMessenger().registerIncomingPluginChannel(plugin, "BungeeCord", new TFM_EaglerIpHandler());
     }
 
     private static void setAppProperties()
