@@ -6,7 +6,6 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -279,19 +278,25 @@ public class TFM_Util
         }
     }
 
+    private static void deleteDir(File file)
+    {
+        File[] contents = file.listFiles();
+        if (contents != null)
+        {
+            for (File f : contents)
+            {
+                deleteDir(f);
+            }
+        }
+        file.delete();
+    }
+
     public static boolean deleteFolder(final File file)
     {
         if (file.exists() && file.isDirectory())
         {
-            try
-            {
-                Files.walk(file.toPath())
-                        .sorted(Comparator.reverseOrder())
-                        .map(Path::toFile)
-                        .forEach(File::delete);
-                return true;
-            }
-            catch (IOException ignored) {}
+            deleteDir(file);
+            return true;
         }
         return false;
     }

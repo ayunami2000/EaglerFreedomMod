@@ -25,7 +25,12 @@ public class Module_schematic extends TFM_HTTPD_Module
     private static final File SCHEMATIC_FOLDER = new File("./plugins/WorldEdit/schematics/");
     private static final String REQUEST_FORM_FILE_ELEMENT_NAME = "schematicFile";
     private static final Pattern SCHEMATIC_FILENAME_LC = Pattern.compile("^[a-z0-9]{1,30}\\.schematic$");
-    private static final FilenameFilter SCHEMATIC_FILTER = (f, name) -> name.endsWith(".schematic");
+    private static final FilenameFilter SCHEMATIC_FILTER = new FilenameFilter() {
+        @Override
+        public boolean accept(File dir, String name) {
+            return name.endsWith(".schematic");
+        }
+    };
     private static final String UPLOAD_FORM =
             "<form method=\"post\" name=\"schematicForm\" id=\"schematicForm\" action=\"/schematic/upload/\" enctype=\"multipart/form-data\">\n"
             + "<p>Select a schematic file to upload. Filenames must be alphanumeric, between 1 and 30 characters long (inclusive), and have a .schematic extension.</p>\n"
