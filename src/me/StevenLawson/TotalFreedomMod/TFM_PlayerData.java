@@ -58,7 +58,8 @@ public class TFM_PlayerData
     public TFM_PlayerData(Player player)
     {
         this.player = player;
-        this.ip = player.getAddress().getAddress().getHostAddress();
+        this.ip = player.getMetadata("eagler_ip").get(0).asString();
+        //this.ip = player.getAddress().getAddress().getHostAddress();
         this.username = player.getName();
     }
 
