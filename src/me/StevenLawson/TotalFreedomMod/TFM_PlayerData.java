@@ -299,7 +299,7 @@ public class TFM_PlayerData
             LivingEntity oldmob = mobThrowerQueue.remove(0);
             if (oldmob != null)
             {
-                oldmob.damage(500.0);
+                oldmob.damage(500);
             }
         }
     }

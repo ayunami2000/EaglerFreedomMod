@@ -1,7 +1,6 @@
 package me.StevenLawson.TotalFreedomMod;
 
 import java.io.File;
-import net.minecraft.util.org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -76,7 +75,7 @@ public class TFM_Flatlands extends TFM_CustomWorld
             {
                 TFM_Log.info("Wiping flatlands.");
                 TFM_Util.setSavedFlag("do_wipe_flatlands", false);
-                FileUtils.deleteQuietly(new File("./flatlands"));
+                TFM_Util.deleteFolder(new File("./flatlands"));
             }
             else
             {

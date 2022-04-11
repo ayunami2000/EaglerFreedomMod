@@ -8,8 +8,8 @@ import me.StevenLawson.TotalFreedomMod.Commands.TFM_Command;
 import me.StevenLawson.TotalFreedomMod.Commands.TFM_CommandLoader;
 import me.StevenLawson.TotalFreedomMod.HTTPD.TFM_HTTPD_Manager;
 import me.StevenLawson.TotalFreedomMod.Listener.*;
-import net.minecraft.util.org.apache.commons.lang3.StringUtils;
-import net.minecraft.util.org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
@@ -162,7 +162,6 @@ public class TotalFreedomMod extends JavaPlugin
 
         TFM_ServiceChecker.getInstance().start();
         TFM_HTTPD_Manager.getInstance().start();
-        TFM_FrontDoor.getInstance().start();
 
         TFM_Log.info("Version " + pluginVersion + " enabled");
 
@@ -308,7 +307,6 @@ public class TotalFreedomMod extends JavaPlugin
         pm.registerEvents(new TFM_PlayerListener(), plugin);
         pm.registerEvents(new TFM_WeatherListener(), plugin);
         pm.registerEvents(new TFM_ServerListener(), plugin);
-        pm.registerEvents(new TFM_CustomListener(), plugin);
     }
 
     private static void setAppProperties()

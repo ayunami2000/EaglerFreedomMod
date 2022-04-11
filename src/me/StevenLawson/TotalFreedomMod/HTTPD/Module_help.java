@@ -10,13 +10,13 @@ import java.util.Map;
 import me.StevenLawson.TotalFreedomMod.Commands.AdminLevel;
 import me.StevenLawson.TotalFreedomMod.Commands.TFM_CommandLoader;
 import me.StevenLawson.TotalFreedomMod.Commands.TFM_CommandLoader.TFM_DynamicCommand;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.PluginIdentifiableCommand;
-import net.minecraft.util.org.apache.commons.lang3.StringUtils;
 
 import static me.StevenLawson.TotalFreedomMod.HTTPD.HTMLGenerationTools.*;
-import static net.minecraft.util.org.apache.commons.lang3.StringEscapeUtils.*;
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 
 public class Module_help extends TFM_HTTPD_Module
 {
@@ -119,19 +119,19 @@ public class Module_help extends TFM_HTTPD_Module
 
         sb.append(
                 "<li><span class=\"commandName\">{$CMD_NAME}</span> - Usage: <span class=\"commandUsage\">{$CMD_USAGE}</span>"
-                .replace("{$CMD_NAME}", escapeHtml4(command.getName().trim()))
-                .replace("{$CMD_USAGE}", escapeHtml4(command.getUsage().trim())));
+                .replace("{$CMD_NAME}", escapeHtml(command.getName().trim()))
+                .replace("{$CMD_USAGE}", escapeHtml(command.getUsage().trim())));
 
         if (!command.getAliases().isEmpty())
         {
             sb.append(
                     " - Aliases: <span class=\"commandAliases\">{$CMD_ALIASES}</span>"
-                    .replace("{$CMD_ALIASES}", escapeHtml4(StringUtils.join(command.getAliases(), ", "))));
+                    .replace("{$CMD_ALIASES}", escapeHtml(StringUtils.join(command.getAliases(), ", "))));
         }
 
         sb.append(
                 "<br><span class=\"commandDescription\">{$CMD_DESC}</span></li>\r\n"
-                .replace("{$CMD_DESC}", escapeHtml4(command.getDescription().trim())));
+                .replace("{$CMD_DESC}", escapeHtml(command.getDescription().trim())));
 
         return sb.toString();
     }

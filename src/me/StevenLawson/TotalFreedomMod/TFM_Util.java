@@ -5,14 +5,16 @@ import java.lang.reflect.Field;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import net.minecraft.util.org.apache.commons.io.FileUtils;
 
-import net.minecraft.util.org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -268,7 +270,7 @@ public class TFM_Util
         try
         {
             final InputStream configFileStream = TotalFreedomMod.plugin.getResource(configFileName);
-            FileUtils.copyInputStreamToFile(configFileStream, targetFile);
+            Files.copy(configFileStream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             configFileStream.close();
         }
         catch (IOException ex)
@@ -281,7 +283,15 @@ public class TFM_Util
     {
         if (file.exists() && file.isDirectory())
         {
-            return FileUtils.deleteQuietly(file);
+            try
+            {
+                Files.walk(file.toPath())
+                        .sorted(Comparator.reverseOrder())
+                        .map(Path::toFile)
+                        .forEach(File::delete);
+                return true;
+            }
+            catch (IOException ignored) {}
         }
         return false;
     }

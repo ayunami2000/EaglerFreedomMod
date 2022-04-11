@@ -4,9 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.EnumMap;
 import java.util.List;
-import net.minecraft.util.org.apache.commons.io.FileUtils;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -240,7 +241,7 @@ public class TFM_Config
         try
         {
             InputStream defaultConfig = getDefaultConfig();
-            FileUtils.copyInputStreamToFile(defaultConfig, targetFile);
+            Files.copy(defaultConfig, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             defaultConfig.close();
         }
         catch (IOException ex)

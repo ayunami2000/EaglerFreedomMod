@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
-import static net.minecraft.util.org.apache.commons.lang3.StringEscapeUtils.*;
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 
 public class HTMLGenerationTools
 {
@@ -15,12 +15,12 @@ public class HTMLGenerationTools
 
     public static String paragraph(String data)
     {
-        return "<p>" + escapeHtml4(data) + "</p>\r\n";
+        return "<p>" + escapeHtml(data) + "</p>\r\n";
     }
 
     public static String heading(String data, int level)
     {
-        return "<h" + level + ">" + escapeHtml4(data) + "</h" + level + ">\r\n";
+        return "<h" + level + ">" + escapeHtml(data) + "</h" + level + ">\r\n";
     }
 
     public static <K, V> String list(Map<K, V> map)
@@ -33,7 +33,7 @@ public class HTMLGenerationTools
         while (it.hasNext())
         {
             Map.Entry<K, V> entry = it.next();
-            output.append("<li>").append(escapeHtml4(entry.getKey().toString() + " = " + entry.getValue().toString())).append("</li>\r\n");
+            output.append("<li>").append(escapeHtml(entry.getKey().toString() + " = " + entry.getValue().toString())).append("</li>\r\n");
         }
 
         output.append("</ul>\r\n");
@@ -49,7 +49,7 @@ public class HTMLGenerationTools
 
         for (T entry : list)
         {
-            output.append("<li>").append(escapeHtml4(entry.toString())).append("</li>\r\n");
+            output.append("<li>").append(escapeHtml(entry.toString())).append("</li>\r\n");
         }
 
         output.append("</ul>\r\n");

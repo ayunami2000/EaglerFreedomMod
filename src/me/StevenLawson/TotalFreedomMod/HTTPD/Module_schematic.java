@@ -1,7 +1,9 @@
 package me.StevenLawson.TotalFreedomMod.HTTPD;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -14,19 +16,16 @@ import me.StevenLawson.TotalFreedomMod.HTTPD.NanoHTTPD.Response;
 import me.StevenLawson.TotalFreedomMod.TFM_Log;
 import me.StevenLawson.TotalFreedomMod.TFM_Superadmin;
 import me.StevenLawson.TotalFreedomMod.TFM_SuperadminList;
-import net.minecraft.util.org.apache.commons.io.FileUtils;
-import net.minecraft.util.org.apache.commons.lang3.StringEscapeUtils;
-import net.minecraft.util.org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
+
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 
 public class Module_schematic extends TFM_HTTPD_Module
 {
     private static final File SCHEMATIC_FOLDER = new File("./plugins/WorldEdit/schematics/");
     private static final String REQUEST_FORM_FILE_ELEMENT_NAME = "schematicFile";
     private static final Pattern SCHEMATIC_FILENAME_LC = Pattern.compile("^[a-z0-9]{1,30}\\.schematic$");
-    private static final String[] SCHEMATIC_FILTER = new String[]
-    {
-        "schematic"
-    };
+    private static final FilenameFilter SCHEMATIC_FILTER = (f, name) -> name.endsWith(".schematic");
     private static final String UPLOAD_FORM =
             "<form method=\"post\" name=\"schematicForm\" id=\"schematicForm\" action=\"/schematic/upload/\" enctype=\"multipart/form-data\">\n"
             + "<p>Select a schematic file to upload. Filenames must be alphanumeric, between 1 and 30 characters long (inclusive), and have a .schematic extension.</p>\n"
@@ -74,12 +73,12 @@ public class Module_schematic extends TFM_HTTPD_Module
         {
             case LIST:
             {
-                Collection<File> schematics = FileUtils.listFiles(SCHEMATIC_FOLDER, SCHEMATIC_FILTER, false);
+                File[] schematics = SCHEMATIC_FOLDER.listFiles(SCHEMATIC_FILTER);
 
                 final List<String> schematicsFormatted = new ArrayList<String>();
                 for (File schematic : schematics)
                 {
-                    String filename = StringEscapeUtils.escapeHtml4(schematic.getName());
+                    String filename = escapeHtml(schematic.getName());
                     schematicsFormatted.add("<li><a href=\"/schematic/download?schematicName=" + filename + "\">" + filename + "</a></li>");
                 }
 
@@ -172,7 +171,7 @@ public class Module_schematic extends TFM_HTTPD_Module
             throw new SchematicTransferException("Can't resolve original file name.");
         }
 
-        if (tempFile.length() > FileUtils.ONE_KB * 64L)
+        if (tempFile.length() > 1024 * 64L)
         {
             throw new SchematicTransferException("Schematic is too big (64kb max).");
         }
@@ -190,7 +189,7 @@ public class Module_schematic extends TFM_HTTPD_Module
 
         try
         {
-            FileUtils.copyFile(tempFile, targetFile);
+            Files.copy(tempFile.toPath(), targetFile.toPath());
         }
         catch (IOException ex)
         {

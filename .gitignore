@@ -21,3 +21,6 @@ Thumbs.db
 # Intellij IDEA files
 .idea/
 EaglerFreedomMod.iml
+
+# Libraries
+lib/
