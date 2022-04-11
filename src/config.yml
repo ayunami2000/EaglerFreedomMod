@@ -1,0 +1,200 @@
+# TotalFreedomMod v3.3 Configuration
+# by Madgeek1450 and DarthSalamon
+
+# Block placement prevention:
+allow_fire_place: false
+allow_fire_spread: false
+allow_lava_damage: false
+allow_lava_place: false
+allow_water_place: false
+allow_fluid_spread: false
+allow_tnt_minecarts: false
+
+# Explosion management:
+allow_explosions: false
+explosive_radius: 4.0
+
+# Blocked commands:
+#
+# How blocked commands work:
+# All sections described below are delimited by colon-characters.
+# Make sure that you block a command by it's main command name, not an alias
+# -as all aliases are blocked by default. Commands are case-insensitive ofcourse.
+# You can block specific subcommands aswell. eg: /mail sendall
+#
+# * The first section is a letter which indicates which rank may use this command
+#   Valid ranks:
+#   n - Nobody (Completely disabled)
+#   c - Senior Admins (Console)
+#   t - Telnet Admins (Console)
+#   s - SuperAdmins
+#   o - Ops (Non-Ops won't be able to use it)
+#
+# * The second section is a letter which indicates what to do when a player executes that command.
+#   Valid actions:
+#   b - Block the command
+#   a - Block the command and auto-eject that player (for ops and below)
+#   u - Block the command and Return an "Unknown command" message (Used to hide commands)
+#
+# * The third section is the command to be blocked, prefixed with a slash
+#
+# * The fourth section is the message to send to the player when executing that command.
+#   This should be ommited if unwanted. ChatColors are supported with the &-key. By default
+#   -the starting ChatColor is set to gray. You can use the default 'That command is blocked.' message
+#   by using a single underscore.
+#
+# Examples:
+#   - 'n:b:/mail sendall:&4You can't send mails to everyone!'
+#   - 's:a:/stop'
+#   - 'n:b:/ban:_'
+#
+blocked_commands:
+  # Disabled commands
+  - 'n:b:/time:Server-side time changing is disabled. Please use /ptime to set your own personal time.'
+  - 'n:b:/md:This server now uses DisguiseCraft instead of MobDisguise. Type /d to disguise and /u to undisguise.'
+  - 'n:b:/gamemode:Use /creative and /survival to set your gamemode.'
+  - 'n:b:/gamerule:_'
+  - 'n:b:/ban:_'
+  - 'n:b:/pardon:_'
+  - 'n:b:/ban-ip:_'
+  - 'n:b:/pardon-ip:_'
+  - 'n:b:/toggledownfall:_'
+  - 'n:b:/effect:Please use /potion to set effects.'
+  - 'n:b:/enderchest:_'
+  
+  # Superadmin commands
+  - 's:b:/kick:_'
+  - 's:b:/socialspy:_'
+  - 's:b:/kill:_'
+  - 's:b://generate:_'
+  - 's:b://:_'
+  - 's:b:/superpickaxe:_'
+  - 's:b:/brush:_'
+  - 's:b:/mat:_'
+  - 's:b:/tool:_'
+  - 's:b://butcher:_'
+  - 's:b:/scoreboard:_'
+  
+  # Superadmin commands - Auto-eject
+  - 's:a:/stop'
+  - 's:a:/reload'
+  - 's:a:/nuke'
+  - 's:a:/save-all'
+  - 's:a:/save-on'
+  - 's:a:/save-off'
+  - 's:a:/clearhistory'
+
+# Automatically wipe dropped objects:
+auto_wipe: true
+
+# Nuking prevention:
+nuke_monitor: true
+nuke_monitor_count_break: 100
+nuke_monitor_count_place: 25
+nuke_monitor_range: 10.0
+freecam_trigger_count: 10
+
+# Show all attempted commands in the log, will result in duplicate log messages:
+preprocess_log: true
+
+# Disable nighttime:
+disable_night: true
+
+# Disable weather:
+disable_weather: true
+
+# Enable misc. features:
+landmines_enabled: false
+mp44_enabled: false
+tossmob_enabled: false
+
+# Moblimiter:
+mob_limiter_enabled: true
+# Max per world:
+mob_limiter_max: 50
+mob_limiter_disable_dragon: true
+mob_limiter_disable_ghast: true
+mob_limiter_disable_slime: true
+mob_limiter_disable_giant: true
+
+# Flatlands
+generate_flatlands: true
+# Flatlands generation parameters, uses CleanroomGenerator syntax - http://dev.bukkit.org/server-mods/cleanroomgenerator/
+flatlands_generation_params: 16,stone,32,dirt,1,grass
+
+# Admin-Only Mode
+admin_only_mode: false
+
+# Protected Areas - Protect areas so that only superadmins can directly modify blocks in those areas. WorldEdit and other such plugins might bypass this.
+protected_areas_enabled: true
+auto_protect_spawnpoints: true
+auto_protect_radius: 25.0
+
+# Host Sender Names - Names that indicate automated services or host-based consoles you want to block from using some commands.
+# Make sure these are all lower-case.
+host_sender_names:
+  - rcon
+  - remotebukkit
+
+# Players who cannot be banned by username
+unbannable_usernames:
+  - honeydew
+  - xephos
+  - captainsparklez
+  - truemu
+  - kiershar
+  - fvdisco
+  - sethbling
+  - notch
+  - jeb_
+  - gamechap
+  - bertiechap
+  - vechs
+  - antvenom
+  - chimneyswift
+  - deadmau5
+  - etho
+  - ethoslab
+  - skydoesminecraft
+  - skythekidrs
+  - tobyturner
+  - xxslyfoxhoundxx
+  - paulsoaresjr
+  - sips_
+  - deadlox
+  - xxslyxx
+  - jeromeasf
+  - dinnerbone
+  - grumm
+  - grum
+  - evilseph
+  - cavemanfilms
+  - herobrine
+  - whiteboy7thst
+
+# TwitterBot - Used to allow superadmins to verify themselves using twitter
+twitterbot_enabled: false
+twitterbot_url: ''
+twitterbot_secret: ''
+
+# Pet Protect - Prevent tamed pets from being killed.
+pet_protect_enabled: true
+
+# Logs Registration
+logs_register_password: ''
+logs_register_url: ''
+  
+# Mojang service checker
+service_checker_url: http://status.mojang.com/check
+
+# HTTPD
+httpd_enabled: true
+httpd_public_folder: ./public_html
+httpd_port: 28966
+
+# Inactivity Auto-Kick (Requires Essentials)
+autokick_enabled: true
+# autokick_threshold - Percentage of server player capacity used at which players will be automatically kicked for being inactive. Range: 0.0 - 1.0
+autokick_threshold: 0.9
+# autokick_time - Time, in seconds, after which a player should be kicked when inactive
+autokick_time: 120
